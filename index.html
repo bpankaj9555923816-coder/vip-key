@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AKHIL SKIN TOOL - VIP KEY</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+        body {
+            background-color: #08080C;
+            color: #FFFFFF;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .card {
+            background: #111118;
+            border: 1.5px solid #FF2A42;
+            box-shadow: 0 0 30px rgba(255, 42, 66, 0.25);
+            border-radius: 18px;
+            padding: 30px 24px;
+            width: 100%;
+            max-width: 420px;
+            text-align: center;
+        }
+        .badge {
+            display: inline-block;
+            background: rgba(255, 42, 66, 0.15);
+            color: #FF2A42;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            border: 1px solid rgba(255, 42, 66, 0.3);
+        }
+        h1 {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+        p.subtitle {
+            font-size: 11px;
+            color: #888899;
+            letter-spacing: 2px;
+            margin-bottom: 24px;
+            font-weight: 600;
+        }
+        .key-container {
+            background: #0B0B10;
+            border: 1px solid #222230;
+            border-radius: 12px;
+            padding: 18px 12px;
+            margin-bottom: 20px;
+        }
+        .key-label {
+            font-size: 11px;
+            color: #777788;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+        .key-text {
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: #FF2A42;
+            font-family: monospace;
+            user-select: all;
+        }
+        .btn-copy {
+            background: linear-gradient(90deg, #D3081B, #FF2A42);
+            color: #FFFFFF;
+            border: none;
+            border-radius: 10px;
+            padding: 14px;
+            width: 100%;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 42, 66, 0.35);
+            transition: transform 0.1s;
+        }
+        .btn-copy:active {
+            transform: scale(0.97);
+        }
+        .footer-note {
+            margin-top: 20px;
+            font-size: 11px;
+            color: #666677;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="badge">OFFICIAL VIP KEY</div>
+        <h1>AKHIL SKIN TOOL</h1>
+        <p class="subtitle">VIP ACCESS KEY</p>
+
+        <div class="key-container">
+            <div class="key-label">Your Device Access Key</div>
+            <div class="key-text" id="keyDisplay">GENERATING...</div>
+        </div>
+
+        <button class="btn-copy" id="btnCopy" onclick="copyKey()">📋 COPY KEY</button>
+
+        <div class="footer-note">
+            Copy this key and paste it inside <b>AKHIL SKIN TOOL</b> to unlock all skins!
+        </div>
+    </div>
+
+    <script>
+        async function sha256(message) {
+            const msgBuffer = new TextEncoder().encode(message);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+            return new Uint8Array(hashBuffer);
+        }
+
+        async function computeKey(devId) {
+            const salt = "AKHIL_SECRET_SALT_2026_VIP";
+            const now = Date.now();
+            const window12h = Math.floor(now / (1000 * 3600 * 12));
+            const msg = devId.toLowerCase() + "_" + window12h + "_" + salt;
+            
+            const hash = await sha256(msg);
+            const alphabet = "23456789ABCDEFGHJKLMNPQRSTUVWXYZ";
+            let res = "";
+            for (let i = 0; i < 8; i++) {
+                res += alphabet[hash[i] % alphabet.length];
+            }
+            return "AKHIL-" + res.substring(0, 4) + "-" + res.substring(4, 8);
+        }
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const deviceId = urlParams.get('d') || "default_guest";
+
+        computeKey(deviceId).then(key => {
+            document.getElementById('keyDisplay').innerText = key;
+        });
+
+        function copyKey() {
+            const key = document.getElementById('keyDisplay').innerText;
+            navigator.clipboard.writeText(key).then(() => {
+                const btn = document.getElementById('btnCopy');
+                btn.innerText = "✅ COPIED! OPEN APP";
+                btn.style.background = "#00C853";
+                setTimeout(() => {
+                    btn.innerText = "📋 COPY KEY";
+                    btn.style.background = "linear-gradient(90deg, #D3081B, #FF2A42)";
+                }, 3000);
+            });
+        }
+    </script>
+</body>
+</html>
